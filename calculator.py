@@ -4,10 +4,11 @@ from bs4 import BeautifulSoup
 root_site = 'https://tabiturient.ru'
 
 
-def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog='', xim='', fiz='', lit='', hist=''):
+def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog='', xim='', fiz='', lit='', hist='',
+               limit=100, region=''):
     headers = {
         'accept': 'text/html, */*; q=0.01',
-        'accept-language': 'en-US,en;q=0.9',
+        'accept-language': 'ru-RU,en;q=0.9',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'sec-ch-ua': '\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"',
         'sec-ch-ua-mobile': '?0',
@@ -31,7 +32,7 @@ def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog=''
         'sumhist': hist,
         'sort': '1',
         'spec': '',
-        'city': '',
+        'city': region + ' ',
         'dopex': '1',
         'medal': '0',
         'gto': '0',
@@ -39,17 +40,19 @@ def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog=''
         'form1': '1',
         'form2': '0',
         'form3': '0',
-        'limit': '10',
+        'limit': limit,
         'limmore': '0'
     }
-    page = requests.post(root_site + '/ajax/ajcalculator.php', headers=headers, data=body)
+    url = root_site + '/ajax/ajcalculator.php'
+    page = requests.post(url, headers=headers, data=body)
+    print(f'request to: {url}, with params: {body}')
     soup = BeautifulSoup(page.text, "html.parser")
     vuzes = soup.select('div.mobpadd20-3')
 
     response = []
     for vuz in vuzes:
         vuz_id = vuz['id'].lstrip("vuz")
-        vuz_name = vuz.select('td.vuzlistlogo')[0].text
+        vuz_name = vuz.select('td.vuzlistlogo')[0].text.strip()
         napravlenie = vuz.select('td.vuzlistcontent > div > div > div:nth-child(1) > div > span')[0].text
         about_link = vuz.select('table.dopvuzlist * a')[0]['href']
         vuz_obj = {'vuz_id': vuz_id,
@@ -59,8 +62,9 @@ def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog=''
                    }
         response.append(vuz_obj)
         # vuz_name=vuz.center.b.text
+    print(f'response: {response}')
     return response
 
 
 if __name__ == '__main__':
-    calculator(rus='90', math='90', inform='90', fiz='90')
+    print(calculator(rus='90', math='90', inform='90', fiz='90', limit=3, region='1020'))

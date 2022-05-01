@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, Blueprint
 from calculator import calculator
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/vuzes/')
@@ -17,10 +18,15 @@ def vuzes():
     fiz = request.args.get('fiz')
     lit = request.args.get('lit')
     hist = request.args.get('hist')
-    return jsonify(calculator(rus, math, obsh, foreg, inform, biolog, geog, xim, fiz, lit, hist))
+    limit = request.args.get('limit', default=100)
+    region = request.args.get('region', default='')
+    return jsonify(calculator(rus=rus, math=math, obsh=obsh,
+                              foreg=foreg, inform=inform, biolog=biolog, geog=geog,
+                              xim=xim, fiz=fiz, lit=lit, hist=hist, limit=limit, region=region))
 
 
 errors = Blueprint('errors', __name__)
+
 
 @errors.app_errorhandler(Exception)
 def handle_error(error):
@@ -36,6 +42,7 @@ def handle_error(error):
     }
 
     return jsonify(response), status_code
+
 
 if __name__ == '__main__':
     app.run(debug=True)
