@@ -89,9 +89,11 @@ https://tabiturient.ru/calculator/
 * lit- Литература
 * hist - История
 
-Параметр city может быть пустым или соответсвовать значению в файле `./regions.csv`
+Параметр region может быть пустым или соответсвовать значению в файле `./regions.csv`
 
 # Запуск локально 
 
 `pip install`
+
+`python app.py`
 
