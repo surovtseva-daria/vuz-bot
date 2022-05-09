@@ -6,7 +6,7 @@ https://tabiturient.ru/calculator/
 
 С параметрами по баллам, например 
 
-`http://127.0.0.1:5000/vuzes/?math=90&rus=90&fiz=90&inform=90&region=1001&limit=10`
+`http://127.0.0.1:5000/vuzes/?math=90&rus=90&fiz=90&inform=90&region=1001&limit=10&dopexam=0`
 
 в ответ возвращает список вузов и специальностей в формате json:
 
@@ -90,6 +90,9 @@ https://tabiturient.ru/calculator/
 * hist - История
 
 Параметр region может быть пустым или соответсвовать значению в файле `./regions.csv`
+
+Параметр dopexam - "Дополнительный экзамен" может быть 0 или 1, значение по по-умолчанию = 0 
+
 
 # Запуск локально 
 

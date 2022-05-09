@@ -5,7 +5,7 @@ root_site = 'https://tabiturient.ru'
 
 
 def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog='', xim='', fiz='', lit='', hist='',
-               limit=100, region=''):
+               limit=100, region='',dopexam=0):
     headers = {
         'accept': 'text/html, */*; q=0.01',
         'accept-language': 'ru-RU,en;q=0.9',
@@ -33,7 +33,7 @@ def calculator(rus='', math='', obsh='', foreg='', inform='', biolog='', geog=''
         'sort': '1',
         'spec': '',
         'city': region + ' ',
-        'dopex': '1',
+        'dopex': dopexam,
         'medal': '0',
         'gto': '0',
         'volont': '0',

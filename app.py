@@ -20,9 +20,10 @@ def vuzes():
     hist = request.args.get('hist')
     limit = request.args.get('limit', default=100)
     region = request.args.get('region', default='')
+    dopexam = request.args.get('dopexam', default=0)
     return jsonify(calculator(rus=rus, math=math, obsh=obsh,
                               foreg=foreg, inform=inform, biolog=biolog, geog=geog,
-                              xim=xim, fiz=fiz, lit=lit, hist=hist, limit=limit, region=region))
+                              xim=xim, fiz=fiz, lit=lit, hist=hist, limit=limit, region=region,dopexam=dopexam))
 
 
 errors = Blueprint('errors', __name__)
